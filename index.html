@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Am I Turked? | BMI Reality Check</title>
+    <meta name="description" content="Find out if you're turked out. A BMI calculator with a reality check.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Am I Turked?</h1>
+            <p class="tagline">The BMI reality check you didn't ask for</p>
+        </header>
+
+        <form id="bmi-form" class="calculator">
+            <div class="unit-toggle">
+                <button type="button" class="unit-btn active" data-unit="imperial">Imperial (lb/ft)</button>
+                <button type="button" class="unit-btn" data-unit="metric">Metric (kg/cm)</button>
+            </div>
+
+            <div class="input-group">
+                <label for="weight">Weight</label>
+                <div class="input-with-unit">
+                    <input type="number" id="weight" name="weight" placeholder="185" min="1" required>
+                    <span class="unit-label" id="weight-unit">lb</span>
+                </div>
+            </div>
+
+            <div class="input-group imperial-height" id="height-imperial">
+                <label>Height</label>
+                <div class="height-inputs">
+                    <div class="input-with-unit">
+                        <input type="number" id="feet" name="feet" placeholder="5" min="1" max="8" required>
+                        <span class="unit-label">ft</span>
+                    </div>
+                    <div class="input-with-unit">
+                        <input type="number" id="inches" name="inches" placeholder="10" min="0" max="11" required>
+                        <span class="unit-label">in</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group metric-height hidden" id="height-metric">
+                <label for="cm">Height</label>
+                <div class="input-with-unit">
+                    <input type="number" id="cm" name="cm" placeholder="178" min="50" max="250">
+                    <span class="unit-label">cm</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Am I Turked?</button>
+        </form>
+
+        <section id="definition-section" class="definition-section">
+            <h3>What does "Turk" mean?</h3>
+            <div class="dictionary-entry">
+                <p class="word">Turk <span class="pronunciation">/tɜːrk/</span> <span class="pos">noun</span></p>
+                <p class="definition">An overweight or obese individual. Derived from "turkey" — plump, carrying extra fluff, and often developing the signature neck wattle.</p>
+                <div class="examples">
+                    <p><em>"Bro's been hitting the drive-thru hard. He's getting turked."</em></p>
+                    <p><em>"I stepped on the scale after Thanksgiving... fully turked out."</em></p>
+                </div>
+                <p class="origin"><strong>Origin:</strong> The comparison to a turkey — a bird known for its round body, fluffy appearance, and distinctive neck wattle (the dangly bit). If you've ever seen a turkey strut, you get it.</p>
+            </div>
+        </section>
+
+        <section id="result" class="result hidden">
+            <!-- Shareable Card (this gets captured as image) -->
+            <div class="share-card" id="share-card">
+                <div class="share-card-header">
+                    <span class="share-card-logo">Am I Turked?</span>
+                </div>
+                <div class="share-card-body">
+                    <h2 id="turk-status"></h2>
+                    <p class="bmi-value">BMI: <span id="bmi-number"></span></p>
+                    <div class="share-card-scale">
+                        <div class="scale-bar">
+                            <div class="scale-segment lean">Lean</div>
+                            <div class="scale-segment normal">Normal</div>
+                            <div class="scale-segment turked">Turk</div>
+                            <div class="scale-segment turked-out">Turked Out</div>
+                        </div>
+                        <div class="scale-marker" id="scale-marker"></div>
+                    </div>
+                </div>
+                <div class="share-card-footer">
+                    <span>amiturked.com</span>
+                </div>
+            </div>
+
+            <p id="result-message" class="result-message"></p>
+
+            <div class="share-buttons">
+                <button id="download-btn" class="share-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Save Image
+                </button>
+                <button id="copy-link-btn" class="share-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                    Copy Link
+                </button>
+            </div>
+
+            <button id="reset-btn" class="reset-btn">Check Again</button>
+        </section>
+
+        <section id="info-section" class="info-section hidden">
+            <h3>But wait, BMI doesn't apply to me because...</h3>
+            <p>Let me guess: you're "muscular" or "big-boned"?</p>
+            <p>Here's the thing: the BMI exception applies to roughly <strong>1-2% of the population</strong> — elite athletes and bodybuilders.
+            Yet somehow, everyone thinks they're the exception.</p>
+            <p>This is called <strong>self-serving bias</strong>. We accept information that flatters us and reject what doesn't.</p>
+            <p>BMI isn't perfect, but for most people, it's a reasonable starting point. If you're turked, you're probably turked.</p>
+        </section>
+
+        <footer>
+            <p>Built for laughs and light education. Not medical advice.</p>
+        </footer>
+    </main>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

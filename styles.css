@@ -1,0 +1,506 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a1628;
+    --bg-secondary: #111d2e;
+    --bg-card: #1a2942;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --accent: #f6c744;
+    --accent-hover: #f8d36a;
+    --lean: #4ade80;
+    --normal: #22d3ee;
+    --turked: #fb923c;
+    --turked-out: #ef4444;
+    --border-radius: 12px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--accent) 0%, #fcd34d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Calculator Form */
+.calculator {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.unit-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.unit-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #1e3a5f;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.unit-btn:hover {
+    border-color: var(--accent);
+}
+
+.unit-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.input-group {
+    margin-bottom: 1.25rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.input-with-unit {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-unit input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    padding-right: 3rem;
+    border: 1px solid #1e3a5f;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.input-with-unit input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.input-with-unit input::placeholder {
+    color: #555;
+}
+
+.unit-label {
+    position: absolute;
+    right: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.height-inputs {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.height-inputs .input-with-unit {
+    flex: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent) 0%, #fcd34d 100%);
+    color: #0a1628;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(246, 199, 68, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Result Section */
+.result {
+    margin-bottom: 2rem;
+}
+
+.result-message {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+/* Shareable Card - Instagram Stories format (9:16 aspect ratio) */
+.share-card {
+    background: linear-gradient(145deg, #0f2744 0%, #0a1e38 50%, #061222 100%);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 1px solid #1e3a5f;
+    /* 9:16 aspect ratio for Instagram Stories */
+    width: 270px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+.share-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.share-card-logo {
+    font-size: 1.125rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent) 0%, #fcd34d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.share-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.share-card-body h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.share-card-body h2.not-turk { color: var(--lean); }
+.share-card-body h2.lean { color: var(--lean); }
+.share-card-body h2.normal { color: var(--normal); }
+.share-card-body h2.turked { color: var(--turked); }
+.share-card-body h2.turked-out { color: var(--turked-out); }
+
+.share-card .bmi-value {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.share-card .bmi-value span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.share-card-scale {
+    width: 100%;
+    padding: 0;
+}
+
+.share-card-scale .scale-bar {
+    height: 28px;
+    border-radius: 6px;
+}
+
+.share-card-scale .scale-segment {
+    font-size: 0.6rem;
+}
+
+.share-card-scale .scale-marker {
+    height: 44px;
+    top: -36px;
+}
+
+.share-card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.share-card-footer span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Share Buttons */
+.share-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.share-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid #1e3a5f;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+    border-color: var(--accent);
+    background: rgba(246, 199, 68, 0.1);
+}
+
+.share-btn svg {
+    flex-shrink: 0;
+}
+
+.share-btn.copied {
+    border-color: var(--lean);
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--lean);
+}
+
+.scale-bar {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 40px;
+    position: relative;
+}
+
+.scale-segment {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.scale-segment.not-turk { background: var(--lean); }
+.scale-segment.lean { background: var(--lean); }
+.scale-segment.normal { background: var(--normal); }
+.scale-segment.turked { background: var(--turked); }
+.scale-segment.turked-out { background: var(--turked-out); }
+
+.scale-marker {
+    width: 4px;
+    height: 56px;
+    background: white;
+    border-radius: 2px;
+    position: relative;
+    top: -48px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: margin-left 0.5s ease;
+}
+
+.reset-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid #1e3a5f;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.reset-btn:hover {
+    border-color: var(--accent);
+}
+
+/* Definition Section */
+.definition-section {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.definition-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.dictionary-entry {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+}
+
+.dictionary-entry .word {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.dictionary-entry .pronunciation {
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.dictionary-entry .pos {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.dictionary-entry .definition {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.dictionary-entry .examples {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: var(--bg-card);
+    border-radius: 6px;
+}
+
+.dictionary-entry .examples p {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.dictionary-entry .examples p:last-child {
+    margin-bottom: 0;
+}
+
+.dictionary-entry .origin {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+}
+
+.dictionary-entry .origin strong {
+    color: var(--text-primary);
+}
+
+/* Info Section */
+.info-section {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.info-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.info-section p {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-size: 0.925rem;
+}
+
+.info-section p:last-child {
+    margin-bottom: 0;
+}
+
+.info-section strong {
+    color: var(--text-primary);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    padding-top: 1rem;
+    border-top: 1px solid #1e3a5f;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .result-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .scale-segment {
+        font-size: 0.65rem;
+    }
+}
+
+/* Number input arrows - hide on webkit */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
