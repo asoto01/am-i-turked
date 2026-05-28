@@ -475,6 +475,10 @@ footer {
     border-top: 1px solid #1e3a5f;
 }
 
+.support-section {
+    margin-top: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
     .container {
