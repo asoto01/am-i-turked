@@ -6,6 +6,10 @@
     <title>Am I Turked? | BMI Reality Check</title>
     <meta name="description" content="Find out if you're turked out. A BMI calculator with a reality check.">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQNVRXWS3M"></script>
     <script>
@@ -81,8 +85,8 @@
         </section>
 
         <section id="result" class="result hidden">
-            <!-- Shareable Card (this gets captured as image) -->
-            <div class="share-card" id="share-card">
+            <!-- Off-screen card used as source for image generation -->
+            <div class="share-card share-card-offscreen" id="share-card">
                 <div class="share-card-header">
                     <span class="share-card-logo">Am I Turked?</span>
                 </div>
@@ -104,17 +108,15 @@
                 </div>
             </div>
 
+            <!-- Auto-generated image for iOS long-press save -->
+            <div id="share-image-container" class="share-image-container hidden">
+                <p class="save-hint">Hold image to save on mobile</p>
+                <img id="share-image" alt="BMI Result" />
+            </div>
+
             <p id="result-message" class="result-message"></p>
 
             <div class="share-buttons">
-                <button id="download-btn" class="share-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    Save Image
-                </button>
                 <button id="copy-link-btn" class="share-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>

@@ -198,6 +198,12 @@ h1 {
     flex-direction: column;
 }
 
+.share-card-offscreen {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+}
+
 .share-card-header {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -274,6 +280,24 @@ h1 {
     font-size: 0.875rem;
     color: var(--text-secondary);
     font-weight: 500;
+}
+
+/* Share Image (for iOS long-press save) */
+.share-image-container {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.share-image-container img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
+    -webkit-touch-callout: default;
+}
+
+.save-hint {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
 }
 
 /* Share Buttons */

@@ -11,10 +11,11 @@ const heightImperial = document.getElementById('height-imperial');
 const heightMetric = document.getElementById('height-metric');
 const weightUnit = document.getElementById('weight-unit');
 const shareCard = document.getElementById('share-card');
-const downloadBtn = document.getElementById('download-btn');
 const copyLinkBtn = document.getElementById('copy-link-btn');
 const definitionSection = document.getElementById('definition-section');
 const infoSection = document.getElementById('info-section');
+const shareImageContainer = document.getElementById('share-image-container');
+const shareImage = document.getElementById('share-image');
 
 let currentUnit = 'imperial';
 let currentBMI = 0;
@@ -133,11 +134,26 @@ function getRandomMessage(messages) {
 
 // Position scale marker
 function positionMarker(bmi) {
-    // BMI range for visual: 15 to 40
-    const minBMI = 15;
-    const maxBMI = 40;
-    const clampedBMI = Math.max(minBMI, Math.min(maxBMI, bmi));
-    const percentage = ((clampedBMI - minBMI) / (maxBMI - minBMI)) * 100;
+    // Each segment is 25% wide, position marker within the correct segment
+    let percentage;
+
+    if (bmi < 18.5) {
+        // Lean: 0-25% (BMI roughly 10-18.5)
+        const segmentProgress = Math.max(0, (bmi - 10) / (18.5 - 10));
+        percentage = segmentProgress * 25;
+    } else if (bmi < 25) {
+        // Normal: 25-50% (BMI 18.5-25)
+        const segmentProgress = (bmi - 18.5) / (25 - 18.5);
+        percentage = 25 + (segmentProgress * 25);
+    } else if (bmi < 30) {
+        // Turk: 50-75% (BMI 25-30)
+        const segmentProgress = (bmi - 25) / (30 - 25);
+        percentage = 50 + (segmentProgress * 25);
+    } else {
+        // Turked Out: 75-100% (BMI 30+)
+        const segmentProgress = Math.min(1, (bmi - 30) / (40 - 30));
+        percentage = 75 + (segmentProgress * 25);
+    }
 
     scaleMarker.style.marginLeft = `calc(${percentage}% - 2px)`;
 }
@@ -176,14 +192,34 @@ form.addEventListener('submit', (e) => {
     resultSection.classList.remove('hidden');
     infoSection.classList.remove('hidden');
 
+    // Generate shareable image for iOS long-press save
+    generateShareImage();
+
     // Scroll to result
     resultSection.scrollIntoView({ behavior: 'smooth' });
 });
+
+// Generate share image for iOS long-press save
+async function generateShareImage() {
+    try {
+        const canvas = await html2canvas(shareCard, {
+            backgroundColor: '#0a1628',
+            scale: 2,
+            logging: false,
+            useCORS: true
+        });
+        shareImage.src = canvas.toDataURL('image/png');
+        shareImageContainer.classList.remove('hidden');
+    } catch (error) {
+        console.error('Error generating share image:', error);
+    }
+}
 
 // Reset
 resetBtn.addEventListener('click', () => {
     resultSection.classList.add('hidden');
     infoSection.classList.add('hidden');
+    shareImageContainer.classList.add('hidden');
     form.classList.remove('hidden');
     definitionSection.classList.remove('hidden');
     form.reset();
@@ -196,27 +232,6 @@ resetBtn.addEventListener('click', () => {
     heightImperial.classList.remove('hidden');
     heightMetric.classList.add('hidden');
     weightUnit.textContent = 'lb';
-});
-
-// Download share card as image (Instagram Stories: 1080x1920)
-downloadBtn.addEventListener('click', async () => {
-    try {
-        const canvas = await html2canvas(shareCard, {
-            backgroundColor: '#0a1628',
-            scale: 4, // 270x480 * 4 = 1080x1920 (Instagram Stories)
-            logging: false,
-            useCORS: true
-        });
-
-        // Create download link
-        const link = document.createElement('a');
-        link.download = `am-i-turked-${currentCategory}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-    } catch (error) {
-        console.error('Error generating image:', error);
-        alert('Could not generate image. Try taking a screenshot instead.');
-    }
 });
 
 // Copy shareable link
@@ -282,6 +297,9 @@ function checkSharedBMI() {
             definitionSection.classList.add('hidden');
             resultSection.classList.remove('hidden');
             infoSection.classList.remove('hidden');
+
+            // Generate shareable image for iOS long-press save
+            generateShareImage();
         }
     }
 }
