@@ -103,9 +103,19 @@
                         </div>
                         <div class="scale-marker" id="scale-marker"></div>
                     </div>
+                    <div class="weight-ranges" id="weight-ranges">
+                        <p class="your-stats" id="your-stats"></p>
+                        <p class="ranges-title">At your height:</p>
+                        <div class="ranges-grid">
+                            <span class="range-label lean">Lean</span><span class="range-value" id="range-lean"></span>
+                            <span class="range-label normal">Normal</span><span class="range-value" id="range-normal"></span>
+                            <span class="range-label turked">Turk</span><span class="range-value" id="range-turk"></span>
+                            <span class="range-label turked-out">Turked Out</span><span class="range-value" id="range-turked-out"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="share-card-footer">
-                    <span>amiturked.com</span>
+                    <img src="data:image/png;base64,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" alt="" class="footer-icon"><span>amiturked.com</span>
                 </div>
             </div>
 

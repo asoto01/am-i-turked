@@ -205,17 +205,15 @@ h1 {
 }
 
 .share-card-header {
-    padding: 1.25rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
 }
 
 .share-card-logo {
     font-size: 1.125rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--accent) 0%, #fcd34d 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 .share-card-body {
@@ -224,13 +222,13 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1.5rem;
+    padding: 1rem 1rem;
     text-align: center;
 }
 
 .share-card-body h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
     font-weight: 800;
 }
 
@@ -241,9 +239,9 @@ h1 {
 .share-card-body h2.turked-out { color: var(--turked-out); }
 
 .share-card .bmi-value {
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .share-card .bmi-value span {
@@ -270,10 +268,60 @@ h1 {
     top: -36px;
 }
 
+.weight-ranges {
+    margin-top: 0.75rem;
+    padding: 0 0.5rem;
+}
+
+.your-stats {
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.ranges-title {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.ranges-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.65rem;
+}
+
+.range-label {
+    font-weight: 600;
+}
+
+.range-label.lean { color: var(--lean); }
+.range-label.normal { color: var(--normal); }
+.range-label.turked { color: var(--turked); }
+.range-label.turked-out { color: var(--turked-out); }
+
+.range-value {
+    color: var(--text-secondary);
+    text-align: right;
+}
+
 .share-card-footer {
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.footer-icon {
+    width: 18px;
+    height: 18px;
 }
 
 .share-card-footer span {

@@ -16,8 +16,13 @@ const definitionSection = document.getElementById('definition-section');
 const infoSection = document.getElementById('info-section');
 const shareImageContainer = document.getElementById('share-image-container');
 const shareImage = document.getElementById('share-image');
+const rangeLean = document.getElementById('range-lean');
+const rangeNormal = document.getElementById('range-normal');
+const rangeTurk = document.getElementById('range-turk');
+const rangeTurkedOut = document.getElementById('range-turked-out');
 
 let currentUnit = 'imperial';
+let currentHeightM = 0;
 let currentBMI = 0;
 let currentCategory = '';
 
@@ -127,6 +132,35 @@ function getTurkCategory(bmi) {
     return turkScale.obese;
 }
 
+// Calculate weight ranges for a given height
+function updateWeightRanges(heightM, weightKg) {
+    // Weight = BMI × height²
+    const leanMax = 18.5 * heightM * heightM;
+    const normalMax = 24.9 * heightM * heightM;
+    const turkMax = 29.9 * heightM * heightM;
+
+    // Convert to current unit
+    const weightUnit = currentUnit === 'imperial' ? 'lb' : 'kg';
+    const factor = currentUnit === 'imperial' ? 2.20462 : 1;
+
+    const formatWeight = (kg) => Math.round(kg * factor);
+
+    // Display current stats
+    const yourStats = document.getElementById('your-stats');
+    if (currentUnit === 'imperial') {
+        const feet = Math.floor(heightM / 0.0254 / 12);
+        const inches = Math.round((heightM / 0.0254) % 12);
+        yourStats.textContent = `${formatWeight(weightKg)} lb at ${feet}'${inches}"`;
+    } else {
+        yourStats.textContent = `${formatWeight(weightKg)} kg at ${Math.round(heightM * 100)} cm`;
+    }
+
+    rangeLean.textContent = `< ${formatWeight(leanMax)} ${weightUnit}`;
+    rangeNormal.textContent = `${formatWeight(leanMax)} - ${formatWeight(normalMax)} ${weightUnit}`;
+    rangeTurk.textContent = `${formatWeight(normalMax)} - ${formatWeight(turkMax)} ${weightUnit}`;
+    rangeTurkedOut.textContent = `> ${formatWeight(turkMax)} ${weightUnit}`;
+}
+
 // Get random message
 function getRandomMessage(messages) {
     return messages[Math.floor(Math.random() * messages.length)];
@@ -176,12 +210,15 @@ form.addEventListener('submit', (e) => {
     // Store for sharing
     currentBMI = bmi;
     currentCategory = category.class;
+    currentHeightM = heightM;
 
     // Update UI
     turkStatus.textContent = category.label;
     turkStatus.className = category.class;
     bmiNumber.textContent = bmi.toFixed(1);
     resultMessage.textContent = getRandomMessage(category.messages);
+    updateWeightRanges(heightM, weightKg);
+    document.getElementById('weight-ranges').classList.remove('hidden');
 
     // Position marker
     positionMarker(bmi);
@@ -204,7 +241,7 @@ async function generateShareImage() {
     try {
         const canvas = await html2canvas(shareCard, {
             backgroundColor: '#0a1628',
-            scale: 2,
+            scale: 4, // 270x480 * 4 = 1080x1920 (Instagram Stories)
             logging: false,
             useCORS: true
         });
@@ -291,6 +328,9 @@ function checkSharedBMI() {
 
             // Position marker
             positionMarker(bmi);
+
+            // Hide weight ranges for shared links (no height data)
+            document.getElementById('weight-ranges').classList.add('hidden');
 
             // Show result, hide definition, show info
             form.classList.add('hidden');
